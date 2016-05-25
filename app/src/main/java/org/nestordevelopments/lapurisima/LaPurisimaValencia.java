@@ -50,7 +50,7 @@ public class LaPurisimaValencia extends AppCompatActivity implements LoaderCallb
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "nestormartinez@lapurisimavalencia.com:1234", "nesmaba@gmail.com:0000"
+            "nestormartinez@lapurisimavalencia.com:1234", "nesmaba:0000"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -194,7 +194,8 @@ public class LaPurisimaValencia extends AppCompatActivity implements LoaderCallb
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        // return email.contains("@"); DESCOMENTAR, NO ME VA EL ARROBA
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
