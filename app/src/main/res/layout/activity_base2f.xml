@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"
+        android:layout_marginBottom="7dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,14 +27,14 @@
             android:id="@+id/frameLayoutBase1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5">
+            android:layout_weight="3">
 
         </FrameLayout>
         <FrameLayout
             android:id="@+id/frameLayoutBase2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5">
+            android:layout_weight="1">
 
         </FrameLayout>
     </LinearLayout>

@@ -6,10 +6,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
+import org.nestordevelopments.lapurisima.Modelo.Mail;
 import org.nestordevelopments.lapurisima.dummy.AlumnoContent;
 
 /**
@@ -56,11 +60,12 @@ public class AlumnosAsistenciaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_alumnos_asistencia, container, false);
+        View rv = (View) view.findViewById(R.id.listAlumnosAsistencia);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+        if (rv instanceof RecyclerView) {
+            Context context = rv.getContext();
+            RecyclerView recyclerView = (RecyclerView) rv;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -68,6 +73,33 @@ public class AlumnosAsistenciaFragment extends Fragment {
             }
             recyclerView.setAdapter(new AlumnosAsistenciaRecyclerViewAdapter(AlumnoContent.ITEMS, mListener));
         }
+
+        Button btEmail = (Button) view.findViewById(R.id.buttonEnviarEmail);
+        btEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Mail m = new Mail("erasmusplus@lapurisimavalencia.com", "*erasmus+");
+
+                String[] toArr = {"nestormartinez@lapurisimavalencia.com", "nestormartinez@alu.lapurisimavalencia.com"};
+                m.setTo(toArr);
+                m.setFrom("erasmusplus@lapurisimavalencia.com");
+                m.setSubject("This is an email sent using my Mail JavaMail wrapper from an Android device.");
+                m.setBody("Email body.");
+
+                try {
+                    // m.addAttachment("/sdcard/filelocation");
+
+                    if(m.send()) {
+                        Toast.makeText(null, "Email was sent successfully.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(null, "Email was not sent.", Toast.LENGTH_LONG).show();
+                    }
+                } catch(Exception e) {
+                    //Toast.makeText(MailApp.this, "There was a problem sending the email.", Toast.LENGTH_LONG).show();
+                    Log.e("MailApp", "Could not send email", e);
+                }
+            }
+        });
         return view;
     }
 

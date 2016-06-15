@@ -24,9 +24,9 @@ public class AlumnoContent {
 
 
     static{
-        addItem(createAlumnoItem(new Alumno("Néstor", "Martínez")));
-        addItem(createAlumnoItem(new Alumno("Alumno 1", "Apellidos 1")));
-        addItem(createAlumnoItem(new Alumno("Alumno 2", "Apellidos 2")));
+        for(int i=0;i<20;i++) {
+            addItem(createAlumnoItem(new Alumno("Alumno "+i, "Apellido "+i)));
+        }
     }
 
     private static AlumnoItem createAlumnoItem(Alumno alumno) {
