@@ -1,6 +1,7 @@
 package org.nestordevelopments.lapurisima;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -78,26 +79,7 @@ public class AlumnosAsistenciaFragment extends Fragment {
         btEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Mail m = new Mail("erasmusplus@lapurisimavalencia.com", "*erasmus+");
-
-                String[] toArr = {"nestormartinez@lapurisimavalencia.com", "nestormartinez@alu.lapurisimavalencia.com"};
-                m.setTo(toArr);
-                m.setFrom("erasmusplus@lapurisimavalencia.com");
-                m.setSubject("This is an email sent using my Mail JavaMail wrapper from an Android device.");
-                m.setBody("Email body.");
-
-                try {
-                    // m.addAttachment("/sdcard/filelocation");
-
-                    if(m.send()) {
-                        Toast.makeText(null, "Email was sent successfully.", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(null, "Email was not sent.", Toast.LENGTH_LONG).show();
-                    }
-                } catch(Exception e) {
-                    //Toast.makeText(MailApp.this, "There was a problem sending the email.", Toast.LENGTH_LONG).show();
-                    Log.e("MailApp", "Could not send email", e);
-                }
+                new EnvioMailAsyncTask().execute();
             }
         });
         return view;
@@ -128,5 +110,60 @@ public class AlumnosAsistenciaFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(AlumnoContent.AlumnoItem item);
+    }
+
+    private class EnvioMailAsyncTask extends AsyncTask <Void,Void,Boolean>{
+
+        @Override
+        protected void onPreExecute() {
+            //TODO código del onPreExecute (Hilo Principal)
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if(result){
+                Toast.makeText(null, "Email was sent successfully.", Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(null, "Email was not sent.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            // DIÁLOGO QUE MUESTRE QUE SE ESTÁ ENVIANDO EL MENSAJE
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onCancelled(Boolean aVoid) {
+            super.onCancelled(aVoid);
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            Mail m = new Mail("erasmusplus@lapurisimavalencia.com", "*erasmus+");
+
+            String[] toArr = {"nestormartinez@lapurisimavalencia.com", "nestormartinez@alu.lapurisimavalencia.com"};
+            m.setTo(toArr);
+            m.setFrom("erasmusplus@lapurisimavalencia.com");
+            m.setSubject("This is an email sent using my Mail JavaMail wrapper from an Android device.");
+            m.setBody("Email body.");
+
+            try {
+                // m.addAttachment("/sdcard/filelocation");
+
+                if(m.send()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch(Exception e) {
+                //Toast.makeText(MailApp.this, "There was a problem sending the email.", Toast.LENGTH_LONG).show();
+                Log.e("MailApp", "Could not send email", e);
+                return false;
+            }
+
+        }
     }
 }

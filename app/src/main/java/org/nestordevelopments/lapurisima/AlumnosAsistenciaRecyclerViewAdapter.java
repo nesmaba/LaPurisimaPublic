@@ -37,6 +37,7 @@ public class AlumnosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<A
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
+        holder.mIdView.setId(position);
         holder.mIdView.setText(mValues.get(position).alumno.toString());
         //holder.mContentView.setText(mValues.get(position).content);
 
