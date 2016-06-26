@@ -22,7 +22,14 @@ public class AlumnoContent {
         ITEMS.add(item);
     }
 
-    private static AlumnoItem createCursoItem(Alumno alumno) {
+
+    static{
+        for(int i=0;i<20;i++) {
+            addItem(createAlumnoItem(new Alumno("Alumno "+i, "Apellido "+i)));
+        }
+    }
+
+    private static AlumnoItem createAlumnoItem(Alumno alumno) {
         return new AlumnoItem(alumno);
     }
 

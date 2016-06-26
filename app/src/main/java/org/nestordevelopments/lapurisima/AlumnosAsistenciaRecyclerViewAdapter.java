@@ -4,24 +4,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
-import org.nestordevelopments.lapurisima.CursosAsistenciaFragment.OnListFragmentInteractionListener;
-import org.nestordevelopments.lapurisima.dummy.CursoContent.CursoItem;
+import org.nestordevelopments.lapurisima.dummy.AlumnoContent.AlumnoItem;
+import org.nestordevelopments.lapurisima.AlumnosAsistenciaFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link CursoItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link AlumnoItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<CursosAsistenciaRecyclerViewAdapter.ViewHolder> {
+public class AlumnosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<AlumnosAsistenciaRecyclerViewAdapter.ViewHolder> {
 
-    private final List<CursoItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<AlumnoItem> mValues;
+    private final AlumnosAsistenciaFragment.OnListFragmentInteractionListener mListener;
 
-    public CursosAsistenciaRecyclerViewAdapter(List<CursoItem> items, OnListFragmentInteractionListener listener) {
+    public AlumnosAsistenciaRecyclerViewAdapter(List<AlumnoItem> items, AlumnosAsistenciaFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -29,14 +30,15 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.curso_item, parent, false);
+                .inflate(R.layout.alumno_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).curso);
+        holder.mIdView.setId(position);
+        holder.mIdView.setText(mValues.get(position).alumno.toString());
         //holder.mContentView.setText(mValues.get(position).content);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -59,13 +61,16 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
+        public final CheckBox chAlumno;
+
         // public final TextView mContentView;
-        public CursoItem mItem;
+        public AlumnoItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
+            mIdView = (TextView) view.findViewById(R.id.textview_alumno);
+            chAlumno = (CheckBox) view.findViewById(R.id.checkbox_alumno);
             // mContentView = (TextView) view.findViewById(R.id.content);
         }
 
@@ -74,4 +79,6 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
             return super.toString() + " '"; //+ mContentView + " '";
         }
     }
+
+
 }

@@ -16,8 +16,10 @@ public class Base2f extends AppCompatActivity {
         if(intent != null){
             String boton= intent.getStringExtra("BotonPulsado");
             if(boton.equals("Asistencias")) {
-                AsistenciaCursosFragment fragmentAsistencias = new AsistenciaCursosFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutBase1, fragmentAsistencias).commit();
+                CursosAsistenciaFragment fragmentCursosAsistencias = new CursosAsistenciaFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutBase1, fragmentCursosAsistencias).commit();
+                AlumnosAsistenciaFragment fragmentAlumnosAsistencias = new AlumnosAsistenciaFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutBase2, fragmentAlumnosAsistencias).commit();
             }
         }
     }

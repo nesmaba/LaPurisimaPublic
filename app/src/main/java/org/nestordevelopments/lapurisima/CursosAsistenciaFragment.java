@@ -11,9 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.nestordevelopments.lapurisima.dummy.CursoContent;
-import org.nestordevelopments.lapurisima.dummy.CursoContent.CursoItem;
-
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -21,7 +18,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class AsistenciaCursosFragment extends Fragment {
+public class CursosAsistenciaFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -33,13 +30,13 @@ public class AsistenciaCursosFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public AsistenciaCursosFragment() {
+    public CursosAsistenciaFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static AsistenciaCursosFragment newInstance(int columnCount) {
-        AsistenciaCursosFragment fragment = new AsistenciaCursosFragment();
+    public static CursosAsistenciaFragment newInstance(int columnCount) {
+        CursosAsistenciaFragment fragment = new CursosAsistenciaFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);

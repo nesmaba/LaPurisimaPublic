@@ -7,16 +7,24 @@ public class Alumno {
 
     private String nombre;
     private String apellidos;
+    private String curso;
     private boolean isSelected;
 
-    public Alumno(String nombre, String apellidos){
-        this.nombre=nombre;
-        this.apellidos=apellidos;
+    public Alumno(String nombre, String apellidos) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
     }
 
-    public Alumno(String nombre, String apellidos, boolean isSelected){
+    public Alumno(String nombre, String apellidos, String curso){
         this.nombre=nombre;
         this.apellidos=apellidos;
+        this.curso=curso;
+    }
+
+    public Alumno(String nombre, String apellidos, String curso, boolean isSelected){
+        this.nombre=nombre;
+        this.apellidos=apellidos;
+        this.curso=curso;
         this.isSelected=isSelected;
     }
 
@@ -42,6 +50,14 @@ public class Alumno {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
     }
 
     @Override
