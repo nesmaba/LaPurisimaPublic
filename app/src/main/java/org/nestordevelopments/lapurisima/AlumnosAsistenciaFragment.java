@@ -3,6 +3,7 @@ package org.nestordevelopments.lapurisima;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import org.nestordevelopments.lapurisima.Modelo.Mail;
@@ -85,6 +87,18 @@ public class AlumnosAsistenciaFragment extends Fragment {
         return view;
     }
 
+    /*
+    @Nullable
+    @Override
+    public View getView() {
+        RecyclerView recyclerView = (RecyclerView) super.getView();
+        AlumnosAsistenciaRecyclerViewAdapter adapter =(AlumnosAsistenciaRecyclerViewAdapter)recyclerView.getAdapter();
+        for(int i=0;i<adapter.getItemCount();i++){
+            CheckBox ch =
+        }
+        return super.getView();
+    }
+    */
 
     @Override
     public void onAttach(Context context) {

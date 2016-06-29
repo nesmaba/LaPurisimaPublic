@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import org.nestordevelopments.lapurisima.dummy.AlumnoContent.AlumnoItem;
@@ -35,15 +36,27 @@ public class AlumnosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<A
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setId(position);
         holder.mIdView.setText(mValues.get(position).alumno.toString());
         //holder.mContentView.setText(mValues.get(position).content);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        if(mValues.get(position).alumno.isSelected())
+            holder.chAlumno.setChecked(true);
+        else
+            holder.chAlumno.setChecked(false);
+
+        holder.mIdView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(holder.chAlumno.isChecked()) {
+                    holder.chAlumno.setChecked(false);
+                    mValues.get(position).alumno.setSelected(false);
+                }else {
+                    holder.chAlumno.setChecked(true);
+                    mValues.get(position).alumno.setSelected(true);
+                }
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
@@ -51,6 +64,21 @@ public class AlumnosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<A
                 }
             }
         });
+
+        /* NO ENTIENDO PORQUE NO VA, SE RAYA, HACE LO QUE QUIERE DESACTIVA Y ACTIVA COMO QUIERE
+        holder.chAlumno.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                buttonView.setChecked(isChecked);
+                if(isChecked) {
+                    System.out.println("pulsado");
+                    mValues.get(position).alumno.setSelected(true);
+                }else {
+                    mValues.get(position).alumno.setSelected(false);
+                }
+            }
+        });
+        */
     }
 
     @Override
