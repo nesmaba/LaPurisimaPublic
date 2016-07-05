@@ -3,7 +3,6 @@ package org.nestordevelopments.lapurisima;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,10 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.Toast;
 
-import org.nestordevelopments.lapurisima.Modelo.Mail;
+import org.nestordevelopments.lapurisima.Modelo.GMailSender;
 import org.nestordevelopments.lapurisima.dummy.AlumnoContent;
 
 /**
@@ -32,6 +30,8 @@ public class AlumnosAsistenciaFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    GMailSender sender;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -52,6 +52,7 @@ public class AlumnosAsistenciaFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        sender = new GMailSender("nestormartinez@lapurisimavalencia.com", "l507nesPurisima");
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
@@ -136,10 +137,10 @@ public class AlumnosAsistenciaFragment extends Fragment {
         @Override
         protected void onPostExecute(Boolean result) {
             if(result){
-                Toast.makeText(null, "Email was sent successfully.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Faltas enviadas correctamente.", Toast.LENGTH_LONG).show();
             }
             else{
-                Toast.makeText(null, "Email was not sent.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "ERROR: No se han podido enviar las faltas.", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -156,6 +157,19 @@ public class AlumnosAsistenciaFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+
+            // Add subject, Body, your mail Id, and receiver mail Id.
+            try {
+                sender.sendMail("Correo de Prueba", " Hola qué tal...", "nestormartinez@lapurisimavalencia.com", "nesmaba@gmail.com");
+                return true;
+            } catch (Exception e) {
+                System.out.println(e);
+                Log.e("ERROR MSG", "Error enviando el mensaje");
+                e.printStackTrace();
+                return false;
+            }
+
+            /* VERSION 1 NO ME FUNCIONA
             Mail m = new Mail("erasmusplus@lapurisimavalencia.com", "*erasmus+");
 
             String[] toArr = {"nestormartinez@lapurisimavalencia.com", "nestormartinez@alu.lapurisimavalencia.com"};
@@ -177,7 +191,7 @@ public class AlumnosAsistenciaFragment extends Fragment {
                 Log.e("MailApp", "Could not send email", e);
                 return false;
             }
-
+            */
         }
     }
 }
