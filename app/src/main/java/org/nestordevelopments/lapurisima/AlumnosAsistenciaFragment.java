@@ -17,6 +17,10 @@ import android.widget.Toast;
 import org.nestordevelopments.lapurisima.Modelo.GMailSender;
 import org.nestordevelopments.lapurisima.dummy.AlumnoContent;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -129,6 +133,8 @@ public class AlumnosAsistenciaFragment extends Fragment {
 
     private class EnvioMailAsyncTask extends AsyncTask <Void,Void,Boolean>{
 
+        String mensaje;
+
         @Override
         protected void onPreExecute() {
             //TODO código del onPreExecute (Hilo Principal)
@@ -160,7 +166,19 @@ public class AlumnosAsistenciaFragment extends Fragment {
 
             // Add subject, Body, your mail Id, and receiver mail Id.
             try {
-                sender.sendMail("Correo de Prueba", " Hola qué tal...", "nestormartinez@lapurisimavalencia.com", "nesmaba@gmail.com");
+                Date fechaActual = new Date();
+                DateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+                DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+
+
+                //TEMPORAL
+                mensaje = "Buenos días,\nSu hijo "+AlumnoContent.ITEMS.get(0).toString()+" " +
+                        "no ha asistido hoy "+formatoFecha.format(fechaActual)+" a las "+
+                        formatoHora.format(fechaActual)+"."+"\nCualquier duda contacte con el Colegio.\n" +
+                        "Le deseamos que pase un buen día.\n\nUn saludo.\n\nColegio La Purísima Franciscanas Valencia.";
+
+                // A PARTIR DE AQUÍ TODO CORRECTO.
+                sender.sendMail("Falta de Asistencia.", mensaje, "nestormartinez@lapurisimavalencia.com", "nesmaba@gmail.com");
                 return true;
             } catch (Exception e) {
                 System.out.println(e);
