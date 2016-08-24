@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.nestordevelopments.lapurisima.CursosAsistenciaFragment.OnListFragmentInteractionListener;
+import org.nestordevelopments.lapurisima.Modelo.Alumno;
+import org.nestordevelopments.lapurisima.dummy.AlumnoContent;
 import org.nestordevelopments.lapurisima.dummy.CursoContent.CursoItem;
 
 import java.util.List;
@@ -42,11 +44,17 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
+
+                //if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
+                System.out.println("TOCADO");
+                AlumnoContent.ITEMS.clear();
+                AlumnoContent.ITEMS.add(new AlumnoContent.AlumnoItem(new Alumno("Néstor","Martínez Ballester")));
+                //ACTUALIZAR EL FRAGMENT QUE CONTIENE LOS ALUMNOS
+                Base2f.fragmentAlumnosAsistencias.getActivity().recreate();
+                    //mListener.onListFragmentInteraction(holder.mItem);
+                //}
             }
         });
     }
