@@ -1,5 +1,7 @@
 package org.nestordevelopments.lapurisima;
 
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +24,13 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
 
     private final List<CursoItem> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private ViewHolder viewHolder;
+    private AppCompatActivity activity;
 
-    public CursosAsistenciaRecyclerViewAdapter(List<CursoItem> items, OnListFragmentInteractionListener listener) {
+    public CursosAsistenciaRecyclerViewAdapter(List<CursoItem> items, OnListFragmentInteractionListener listener, AppCompatActivity activity) {
         mValues = items;
         mListener = listener;
+        this.activity = activity;
     }
 
     @Override
@@ -40,28 +45,47 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).curso);
         //holder.mContentView.setText(mValues.get(position).content);
+        viewHolder=holder;
+
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                 System.out.println("TOCADO");
                 AlumnoContent.ITEMS.clear();
                 AlumnoContent.ITEMS.add(new AlumnoContent.AlumnoItem(new Alumno("Néstor","Martínez Ballester")));
+
+                FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+                AlumnosAsistenciaFragment frag = (AlumnosAsistenciaFragment) (activity.getSupportFragmentManager().findFragmentById(R.id.frameLayoutBase2));
+
+                ft.detach(frag).attach(frag).commit();
+
+
+
+                //AlumnosAsistenciaFragment frag = .newInstance(AlumnoContent.ITEMS.size());
+                //ft.detach(frag).attach(frag).commit();
+                //if (null != mListener) {
+                    // Notify the active callbacks interface (the activity, if the
+                    // fragment is attached to one) that an item has been selected.
+
                 //ACTUALIZAR EL FRAGMENT QUE CONTIENE LOS ALUMNOS
-                Base2f.fragmentAlumnosAsistencias.getActivity().recreate();
+                //Base2f.fragmentAlumnosAsistencias.getActivity().recreate();
+                //CursosAsistenciaRecyclerViewAdapter.this.notifyDataSetChanged();
+
                     //mListener.onListFragmentInteraction(holder.mItem);
                 //}
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public CursosAsistenciaRecyclerViewAdapter.ViewHolder getViewHolder() {
+        return this.viewHolder;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

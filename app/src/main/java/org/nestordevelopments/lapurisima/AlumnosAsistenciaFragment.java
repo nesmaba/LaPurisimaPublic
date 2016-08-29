@@ -1,5 +1,6 @@
 package org.nestordevelopments.lapurisima;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -89,6 +90,8 @@ public class AlumnosAsistenciaFragment extends Fragment {
                 new EnvioMailAsyncTask().execute();
             }
         });
+        if(AlumnoContent.ITEMS.isEmpty())
+            btEmail.setEnabled(false);
         return view;
     }
 
@@ -114,6 +117,11 @@ public class AlumnosAsistenciaFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void actualizaFragment(){
+        android.support.v4.app.FragmentTransaction ft = this.getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
     }
 
     /**

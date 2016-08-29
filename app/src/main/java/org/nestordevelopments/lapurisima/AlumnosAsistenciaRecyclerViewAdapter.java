@@ -107,6 +107,4 @@ public class AlumnosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<A
             return super.toString() + " '"; //+ mContentView + " '";
         }
     }
-
-
 }

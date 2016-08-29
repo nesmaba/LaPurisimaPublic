@@ -3,13 +3,18 @@ package org.nestordevelopments.lapurisima;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.nestordevelopments.lapurisima.Modelo.Alumno;
+import org.nestordevelopments.lapurisima.dummy.AlumnoContent;
 import org.nestordevelopments.lapurisima.dummy.CursoContent;
 
 /**
@@ -60,14 +65,26 @@ public class CursosAsistenciaFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            final RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new CursosAsistenciaRecyclerViewAdapter(CursoContent.ITEMS, mListener));
+            recyclerView.setAdapter(new CursosAsistenciaRecyclerViewAdapter(CursoContent.ITEMS, mListener, (AppCompatActivity) this.getActivity()));
+
+            /*
+            if(recyclerView!=null){
+                ((CursosAsistenciaRecyclerViewAdapter)(recyclerView.getAdapter())).getViewHolder().mView.setOnClickListener(new View.OnClickListener() { //VIEWHOLDER ES NULL!!!!!
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+            }
+            */
         }
+
         return view;
     }
 
