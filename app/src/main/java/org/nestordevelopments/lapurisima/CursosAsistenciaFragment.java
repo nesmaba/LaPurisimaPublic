@@ -92,6 +92,7 @@ public class CursosAsistenciaFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        actualizarCursosAlumnosVistas();
     }
 
     @Override
@@ -100,6 +101,11 @@ public class CursosAsistenciaFragment extends Fragment {
         mListener = null;
     }
 
+    public void actualizarCursosAlumnosVistas(){
+        //LEER DE LA BD LOS CURSOS Y CARGARLOS EN EL ARRAY DEL ADAPTER DE CURSOS
+
+        //LEER DE LA BD LOS ALUMNOS Y CARGARLOS EN EL ARRAY DEL ADAPTER DE ALUMNOS
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
