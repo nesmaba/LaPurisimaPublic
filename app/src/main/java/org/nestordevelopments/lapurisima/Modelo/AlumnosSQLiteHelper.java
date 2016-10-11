@@ -97,7 +97,7 @@ public class AlumnosSQLiteHelper extends SQLiteOpenHelper {
         byte[] buffer = new byte[1024];
         int length;
 
-        databaseInputStream = myContext.getAssets().open("faltasalumnadopurisima");
+        databaseInputStream = myContext.getAssets().open("faltasalumnadopurisima.txt");
         while ((length = databaseInputStream.read(buffer)) > 0) {
             databaseOutputStream.write(buffer);
         }
