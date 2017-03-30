@@ -11,22 +11,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
 /**
  * Created by nestor on 30/08/2016.
  */
-public class AlumnosSQLiteHelper extends SQLiteOpenHelper {
+public class AlumnosSQLiteHelperBAK extends SQLiteOpenHelper {
 
     //LEEMOS UNA BD EXTERNA MÁXIMO 1MB. PARA MÁS BUSCA EN http://www.aprendeandroid.com/l5/sql4.htm
     public static String DB_PATH = "/data/data/org.nestordevelopments.lapurisima/databases/";
-    public static String DB_NAME = "faltas.sqlite";
+    public static String DB_NAME = "faltas.db";
     public static int DB_VERSION = 1;
     private SQLiteDatabase myDataBase;
     private final Context myContext;
 
-    public AlumnosSQLiteHelper(Context contexto, String nombre,
-                               SQLiteDatabase.CursorFactory factory, int version) {
+    public AlumnosSQLiteHelperBAK(Context contexto, String nombre,
+                                  SQLiteDatabase.CursorFactory factory, int version) {
         super(contexto, nombre, factory, version);
         this.myContext = contexto;
     }
@@ -55,6 +54,7 @@ public class AlumnosSQLiteHelper extends SQLiteOpenHelper {
             this.getReadableDatabase();
             try {
                 copyDataBase();
+                openDataBase();
             } catch (IOException e) {
                 throw new Error("Error copiando database");
             }
@@ -100,7 +100,7 @@ public class AlumnosSQLiteHelper extends SQLiteOpenHelper {
         byte[] buffer = new byte[1024];
         int length;
 
-        databaseInputStream = myContext.getAssets().open("faltas.sqlite");
+        databaseInputStream = myContext.getAssets().open("faltas.db");
 
         while ((length = databaseInputStream.read(buffer)) > 0) {
             databaseOutputStream.write(buffer);

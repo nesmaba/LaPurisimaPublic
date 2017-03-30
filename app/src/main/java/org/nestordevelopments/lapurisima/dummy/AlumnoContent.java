@@ -24,9 +24,13 @@ public class AlumnoContent {
 
 
     static{
-        for(int i=0;i<20;i++) {
+        /*
+        for(int i=0;i<ITEMS.size();i++) {
             addItem(createAlumnoItem(new Alumno("Alumno "+i, "Apellido "+i)));
         }
+        */
+        // Volcamos datos de la BD al array ITEMS
+
     }
 
     private static AlumnoItem createAlumnoItem(Alumno alumno) {

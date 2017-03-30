@@ -10,9 +10,11 @@ import android.widget.TextView;
 
 import org.nestordevelopments.lapurisima.CursosAsistenciaFragment.OnListFragmentInteractionListener;
 import org.nestordevelopments.lapurisima.Modelo.Alumno;
+import org.nestordevelopments.lapurisima.Modelo.AlumnosSQLiteHelper;
 import org.nestordevelopments.lapurisima.dummy.AlumnoContent;
 import org.nestordevelopments.lapurisima.dummy.CursoContent.CursoItem;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,11 +28,21 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
     private final OnListFragmentInteractionListener mListener;
     private ViewHolder viewHolder;
     private AppCompatActivity activity;
+    private AlumnosSQLiteHelper BDalumnos;
 
     public CursosAsistenciaRecyclerViewAdapter(List<CursoItem> items, OnListFragmentInteractionListener listener, AppCompatActivity activity) {
         mValues = items;
         mListener = listener;
         this.activity = activity;
+        this.BDalumnos = new AlumnosSQLiteHelper(activity, "faltas.sqlite", null, 1);
+
+        try {
+            this.BDalumnos.createDataBase();
+            this.BDalumnos.openDataBase();
+        } catch (IOException e) {
+            System.out.println("ERROR abriendo la BD. Error: "+e);
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -52,14 +64,16 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
             @Override
             public void onClick(View v) {
                 System.out.println("TOCADO");
+                // Vacío la lista de alumnos para un curso y cargo los alumnos del nuevo curso pulsado
                 AlumnoContent.ITEMS.clear();
                 AlumnoContent.ITEMS.add(new AlumnoContent.AlumnoItem(new Alumno("Néstor","Martínez Ballester")));
+
 
                 FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
                 AlumnosAsistenciaFragment frag = (AlumnosAsistenciaFragment) (activity.getSupportFragmentManager().findFragmentById(R.id.frameLayoutBase2));
 
                 ft.detach(frag).attach(frag).commit();
-
+                BDalumnos.getAlumnos(16);
 
 
                 //AlumnosAsistenciaFragment frag = .newInstance(AlumnoContent.ITEMS.size());
