@@ -18,10 +18,9 @@ public class AlumnoContent {
      */
     public static final List<AlumnoItem> ITEMS = new ArrayList<>();
 
-    private static void addItem(AlumnoItem item) {
+    private static void addItem(AlumnoItem item, int curso) {
         ITEMS.add(item);
     }
-
 
     static{
         /*

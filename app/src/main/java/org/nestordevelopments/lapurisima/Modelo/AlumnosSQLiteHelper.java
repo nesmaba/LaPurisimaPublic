@@ -20,7 +20,7 @@ public class AlumnosSQLiteHelper extends SQLiteOpenHelper {
 
     //LEEMOS UNA BD EXTERNA MÁXIMO 1MB. PARA MÁS BUSCA EN http://www.aprendeandroid.com/l5/sql4.htm
     public static String DB_PATH = "/data/data/org.nestordevelopments.lapurisima/databases/";
-    public static String DB_NAME = "faltas.sqlite";
+    public static String DB_NAME = "faltas.sqlite"; // Tiene que ser db o sqlite. Fichero que no sea la estructura de la BD, sino los datos en sí (encriptado)
     public static int DB_VERSION = 1;
     private SQLiteDatabase myDataBase;
     private final Context myContext;
@@ -111,9 +111,12 @@ public class AlumnosSQLiteHelper extends SQLiteOpenHelper {
         databaseOutputStream.close();
     }
 
-    public void getAlumnos(int curso){
+    public ArrayList<Alumno> getAlumnos(int curso){
+        ArrayList<Alumno> alumnos = new ArrayList<>();
+
         String args[] =new String[1];
         args[0]=String.valueOf(curso);
+        System.out.println("CUSO: "+args[0]);
         Cursor c = myDataBase.query("Alumno", null, "curso=?", args, null, null, null);
         //Nos aseguramos de que existe al menos un registro
         if (c.moveToFirst()) {
@@ -123,7 +126,10 @@ public class AlumnosSQLiteHelper extends SQLiteOpenHelper {
                 String apellido1 = c.getString(2);
                 String apellido2 = c.getString(3);
                 System.out.println("FILA: "+apellido1+" "+apellido2+", "+nombre);
+                Alumno alumno= new Alumno(nombre,apellido1+" "+apellido2, args[0]);
+                alumnos.add(alumno);
             } while(c.moveToNext());
         }
+        return alumnos;
     }
 }

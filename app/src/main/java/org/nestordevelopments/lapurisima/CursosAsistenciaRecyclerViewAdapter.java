@@ -59,21 +59,26 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
         //holder.mContentView.setText(mValues.get(position).content);
         viewHolder=holder;
 
+        final int curso= position;
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("TOCADO");
-                // Vacío la lista de alumnos para un curso y cargo los alumnos del nuevo curso pulsado
-                AlumnoContent.ITEMS.clear();
-                AlumnoContent.ITEMS.add(new AlumnoContent.AlumnoItem(new Alumno("Néstor","Martínez Ballester")));
+                System.out.println("TOCADO "+curso);
 
+                // Vacío la lista de alumnos para un curso y cargo los alumnos del nuevo curso pulsado
+
+                AlumnoContent.ITEMS.clear();
+                //AlumnoContent.ITEMS.add(new AlumnoContent.AlumnoItem(new Alumno("Néstor","Martínez Ballester")));
 
                 FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
                 AlumnosAsistenciaFragment frag = (AlumnosAsistenciaFragment) (activity.getSupportFragmentManager().findFragmentById(R.id.frameLayoutBase2));
 
                 ft.detach(frag).attach(frag).commit();
-                BDalumnos.getAlumnos(16);
+
+                for (Alumno alumno:BDalumnos.getAlumnos(curso)) {
+                    AlumnoContent.ITEMS.add(new AlumnoContent.AlumnoItem(alumno));
+                }
 
 
                 //AlumnosAsistenciaFragment frag = .newInstance(AlumnoContent.ITEMS.size());
