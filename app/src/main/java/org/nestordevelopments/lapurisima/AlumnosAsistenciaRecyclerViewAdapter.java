@@ -5,10 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import org.nestordevelopments.lapurisima.dummy.AlumnoContent.AlumnoItem;
+import org.nestordevelopments.lapurisima.Modelo.Alumno;
+import org.nestordevelopments.lapurisima.dummy.AlumnoContentBORRAR.AlumnoItem;
 import org.nestordevelopments.lapurisima.AlumnosAsistenciaFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
@@ -16,51 +16,51 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link AlumnoItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
-public class AlumnosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<AlumnosAsistenciaRecyclerViewAdapter.ViewHolder> {
 
-    private final List<AlumnoItem> mValues;
+public class AlumnosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<AlumnosAsistenciaRecyclerViewAdapter.ViewHolderAlumno> {
+
+    private final List<Alumno> alumnos;
     private final AlumnosAsistenciaFragment.OnListFragmentInteractionListener mListener;
 
-    public AlumnosAsistenciaRecyclerViewAdapter(List<AlumnoItem> items, AlumnosAsistenciaFragment.OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public AlumnosAsistenciaRecyclerViewAdapter(List<Alumno> items, AlumnosAsistenciaFragment.OnListFragmentInteractionListener listener) {
+        alumnos = items;
         mListener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolderAlumno onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.alumno_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolderAlumno(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setId(position);
-        holder.mIdView.setText(mValues.get(position).alumno.toString());
+    public void onBindViewHolder(final ViewHolderAlumno holder, final int position) {
+        holder.aItem = alumnos.get(position);
+        holder.tvAlumno.setId(position);
+        holder.tvAlumno.setText(alumnos.get(position).toString());
         //holder.mContentView.setText(mValues.get(position).content);
 
-        if(mValues.get(position).alumno.isSelected())
+        if(alumnos.get(position).isSelected())
             holder.chAlumno.setChecked(true);
         else
             holder.chAlumno.setChecked(false);
 
-        holder.mIdView.setOnClickListener(new View.OnClickListener() {
+        holder.tvAlumno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(holder.chAlumno.isChecked()) {
                     holder.chAlumno.setChecked(false);
-                    mValues.get(position).alumno.setSelected(false);
+                    alumnos.get(position).setSelected(false);
                 }else {
                     holder.chAlumno.setChecked(true);
-                    mValues.get(position).alumno.setSelected(true);
+                    alumnos.get(position).setSelected(true);
                 }
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.aItem);
                 }
             }
         });
@@ -83,21 +83,21 @@ public class AlumnosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<A
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return alumnos.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
+    public class ViewHolderAlumno extends RecyclerView.ViewHolder {
+        public final View aView;
+        public final TextView tvAlumno;
         public final CheckBox chAlumno;
 
         // public final TextView mContentView;
-        public AlumnoItem mItem;
+        public Alumno aItem;
 
-        public ViewHolder(View view) {
+        public ViewHolderAlumno(View view) {
             super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.textview_alumno);
+            aView = view;
+            tvAlumno = (TextView) view.findViewById(R.id.textview_alumno);
             chAlumno = (CheckBox) view.findViewById(R.id.checkbox_alumno);
             // mContentView = (TextView) view.findViewById(R.id.content);
         }

@@ -11,7 +11,7 @@ import java.util.List;
  * <p/>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class AlumnoContent {
+public class AlumnoContentBORRAR {
 
     /**
      * An array of sample (dummy) items.

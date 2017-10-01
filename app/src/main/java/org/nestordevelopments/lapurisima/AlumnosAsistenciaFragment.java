@@ -1,6 +1,5 @@
 package org.nestordevelopments.lapurisima;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,8 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.nestordevelopments.lapurisima.Modelo.Alumno;
 import org.nestordevelopments.lapurisima.Modelo.GMailSender;
-import org.nestordevelopments.lapurisima.dummy.AlumnoContent;
+import org.nestordevelopments.lapurisima.dummy.AlumnoContentBORRAR;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -80,7 +80,7 @@ public class AlumnosAsistenciaFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new AlumnosAsistenciaRecyclerViewAdapter(AlumnoContent.ITEMS, mListener));
+            recyclerView.setAdapter(new AlumnosAsistenciaRecyclerViewAdapter(Alumno.ITEMSalumnos, mListener));
         }
 
         Button btEmail = (Button) view.findViewById(R.id.buttonEnviarEmail);
@@ -90,7 +90,7 @@ public class AlumnosAsistenciaFragment extends Fragment {
                 new EnvioMailAsyncTask().execute();
             }
         });
-        if(AlumnoContent.ITEMS.isEmpty())
+        if(Alumno.ITEMSalumnos.isEmpty())
             btEmail.setEnabled(false);
         return view;
     }
@@ -136,7 +136,7 @@ public class AlumnosAsistenciaFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(AlumnoContent.AlumnoItem item);
+        void onListFragmentInteraction(Alumno item);
     }
 
     private class EnvioMailAsyncTask extends AsyncTask <Void,Void,Boolean>{
@@ -180,7 +180,7 @@ public class AlumnosAsistenciaFragment extends Fragment {
 
 
                 //TEMPORAL
-                mensaje = "Buenos días,\nSu hijo "+AlumnoContent.ITEMS.get(0).toString()+" " +
+                mensaje = "Buenos días,\nSu hijo "+ AlumnoContentBORRAR.ITEMS.get(0).toString()+" " +
                         "no ha asistido hoy "+formatoFecha.format(fechaActual)+" a las "+
                         formatoHora.format(fechaActual)+"."+"\nCualquier duda contacte con el Colegio.\n" +
                         "Le deseamos que pase un buen día.\n\nUn saludo.\n\nColegio La Purísima Franciscanas Valencia.";

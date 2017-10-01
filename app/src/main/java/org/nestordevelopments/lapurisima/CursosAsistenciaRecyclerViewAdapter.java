@@ -12,7 +12,7 @@ import org.nestordevelopments.lapurisima.CursosAsistenciaFragment.OnListFragment
 import org.nestordevelopments.lapurisima.Modelo.Alumno;
 import org.nestordevelopments.lapurisima.Modelo.AlumnosSQLiteHelper;
 import org.nestordevelopments.lapurisima.Modelo.Curso;
-import org.nestordevelopments.lapurisima.dummy.AlumnoContent;
+import org.nestordevelopments.lapurisima.dummy.AlumnoContentBORRAR;
 import org.nestordevelopments.lapurisima.dummy.CursoContentBORRAR.CursoItem;
 
 import java.io.IOException;
@@ -71,8 +71,8 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
 
                 // Vacío la lista de alumnos para un curso y cargo los alumnos del nuevo curso pulsado
 
-                AlumnoContent.ITEMS.clear();
-                //AlumnoContent.ITEMS.add(new AlumnoContent.AlumnoItem(new Alumno("Néstor","Martínez Ballester")));
+                AlumnoContentBORRAR.ITEMS.clear();
+                //AlumnoContentBORRAR.ITEMS.add(new AlumnoContentBORRAR.AlumnoItem(new Alumno("Néstor","Martínez Ballester")));
 
                 FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
                 AlumnosAsistenciaFragment frag = (AlumnosAsistenciaFragment) (activity.getSupportFragmentManager().findFragmentById(R.id.frameLayoutBase2));
@@ -80,11 +80,11 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
                 ft.detach(frag).attach(frag).commit();
 
                 for (Alumno alumno:BDalumnos.getAlumnos(curso)) {
-                    AlumnoContent.ITEMS.add(new AlumnoContent.AlumnoItem(alumno));
+                    AlumnoContentBORRAR.ITEMS.add(new AlumnoContentBORRAR.AlumnoItem(alumno));
                 }
 
 
-                //AlumnosAsistenciaFragment frag = .newInstance(AlumnoContent.ITEMS.size());
+                //AlumnosAsistenciaFragment frag = .newInstance(AlumnoContentBORRAR.ITEMS.size());
                 //ft.detach(frag).attach(frag).commit();
                 //if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the

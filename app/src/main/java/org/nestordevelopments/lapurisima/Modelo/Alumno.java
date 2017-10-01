@@ -1,9 +1,14 @@
 package org.nestordevelopments.lapurisima.Modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by nestor on 24/05/2016.
  */
 public class Alumno {
+
+    public static List<Alumno> ITEMSalumnos = new ArrayList<>();
 
     private String nombre;
     private String apellidos;
@@ -63,5 +68,19 @@ public class Alumno {
     @Override
     public String toString() {
         return this.apellidos+", "+this.nombre;
+    }
+
+    private static void addItem(Alumno alumno, int curso) {
+        ITEMSalumnos.add(alumno);
+    }
+
+    static{
+        /*
+        for(int i=0;i<ITEMS.size();i++) {
+            addItem(createAlumnoItem(new Alumno("Alumno "+i, "Apellido "+i)));
+        }
+        */
+        // Volcamos datos de la BD al array ITEMS
+
     }
 }

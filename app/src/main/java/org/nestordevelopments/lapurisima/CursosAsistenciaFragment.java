@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.nestordevelopments.lapurisima.Modelo.Curso;
 import org.nestordevelopments.lapurisima.dummy.CursoContentBORRAR;
 
 /**
@@ -70,7 +71,7 @@ public class CursosAsistenciaFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new CursosAsistenciaRecyclerViewAdapter(CursoContentBORRAR.ITEMS, mListener, (AppCompatActivity) this.getActivity()));
+            recyclerView.setAdapter(new CursosAsistenciaRecyclerViewAdapter(Curso.ITEMS, mListener, (AppCompatActivity) this.getActivity()));
 
             /*
             if(recyclerView!=null){
