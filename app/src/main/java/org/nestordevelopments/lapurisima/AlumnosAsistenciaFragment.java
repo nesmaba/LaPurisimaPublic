@@ -57,7 +57,7 @@ public class AlumnosAsistenciaFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        sender = new GMailSender("nestormartinez@lapurisimavalencia.com", "l507nesPurisima");
+        sender = new GMailSender("pruebas@lapurisimavalencia.com", "12345678");
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {

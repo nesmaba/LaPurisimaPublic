@@ -3,19 +3,15 @@ package org.nestordevelopments.lapurisima;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.nestordevelopments.lapurisima.Modelo.Alumno;
-import org.nestordevelopments.lapurisima.dummy.AlumnoContent;
-import org.nestordevelopments.lapurisima.dummy.CursoContent;
+import org.nestordevelopments.lapurisima.dummy.CursoContentBORRAR;
 
 /**
  * A fragment representing a list of Items.
@@ -30,6 +26,7 @@ public class CursosAsistenciaFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    RecyclerView recyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -65,13 +62,15 @@ public class CursosAsistenciaFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            final RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
+            recyclerView.setHasFixedSize(true);
+
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new CursosAsistenciaRecyclerViewAdapter(CursoContent.ITEMS, mListener, (AppCompatActivity) this.getActivity()));
+            recyclerView.setAdapter(new CursosAsistenciaRecyclerViewAdapter(CursoContentBORRAR.ITEMS, mListener, (AppCompatActivity) this.getActivity()));
 
             /*
             if(recyclerView!=null){
@@ -117,6 +116,6 @@ public class CursosAsistenciaFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(CursoContent.CursoItem item);
+        void onListFragmentInteraction(CursoContentBORRAR.CursoItem item);
     }
 }

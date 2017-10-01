@@ -11,8 +11,9 @@ import android.widget.TextView;
 import org.nestordevelopments.lapurisima.CursosAsistenciaFragment.OnListFragmentInteractionListener;
 import org.nestordevelopments.lapurisima.Modelo.Alumno;
 import org.nestordevelopments.lapurisima.Modelo.AlumnosSQLiteHelper;
+import org.nestordevelopments.lapurisima.Modelo.Curso;
 import org.nestordevelopments.lapurisima.dummy.AlumnoContent;
-import org.nestordevelopments.lapurisima.dummy.CursoContent.CursoItem;
+import org.nestordevelopments.lapurisima.dummy.CursoContentBORRAR.CursoItem;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,18 +21,17 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link CursoItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
-public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<CursosAsistenciaRecyclerViewAdapter.ViewHolder> {
+public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<CursosAsistenciaRecyclerViewAdapter.CursoViewHolder> {
 
-    private final List<CursoItem> mValues;
+    private final List<Curso> aCursos;
     private final OnListFragmentInteractionListener mListener;
-    private ViewHolder viewHolder;
+    private CursosAsistenciaRecyclerViewAdapter.CursoViewHolder viewHolder;
     private AppCompatActivity activity;
     private AlumnosSQLiteHelper BDalumnos;
 
-    public CursosAsistenciaRecyclerViewAdapter(List<CursoItem> items, OnListFragmentInteractionListener listener, AppCompatActivity activity) {
-        mValues = items;
+    public CursosAsistenciaRecyclerViewAdapter(List<Curso> cursos, OnListFragmentInteractionListener listener, AppCompatActivity activity) {
+        aCursos = cursos;
         mListener = listener;
         this.activity = activity;
         this.BDalumnos = new AlumnosSQLiteHelper(activity, "faltas.sqlite", null, 1);
@@ -46,22 +46,25 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CursosAsistenciaRecyclerViewAdapter.CursoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // Método abstracto de RecyclerView.Adapter
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.curso_item, parent, false);
-        return new ViewHolder(view);
+        return new CursosAsistenciaRecyclerViewAdapter.CursoViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).curso);
+    public void onBindViewHolder(CursosAsistenciaRecyclerViewAdapter.CursoViewHolder holder, int position) {
+        // Método abstracto de RecyclerView.Adapter
+        holder.cItem = aCursos.get(position);
+        holder.mIdView.setText(aCursos.get(position).getCurso());
         //holder.mContentView.setText(mValues.get(position).content);
         viewHolder=holder;
 
         final int curso= position;
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
+            //mView es el view que aloja cada curso.
             @Override
             public void onClick(View v) {
                 System.out.println("TOCADO "+curso);
@@ -100,20 +103,21 @@ public class CursosAsistenciaRecyclerViewAdapter extends RecyclerView.Adapter<Cu
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        // Método abstracto de RecyclerView.Adapter
+        return aCursos.size();
     }
 
-    public CursosAsistenciaRecyclerViewAdapter.ViewHolder getViewHolder() {
+    public CursosAsistenciaRecyclerViewAdapter.CursoViewHolder getViewHolder() {
         return this.viewHolder;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class CursoViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         // public final TextView mContentView;
-        public CursoItem mItem;
+        public Curso cItem;
 
-        public ViewHolder(View view) {
+        public CursoViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);
